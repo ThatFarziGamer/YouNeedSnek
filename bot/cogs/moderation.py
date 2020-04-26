@@ -52,7 +52,7 @@ class Mods(commands.Cog):
         else:
             file = ["", "", "", "", "", "", "", ""]
 
-    @commands.command(name="recruit")
+    @commnds.command(name="recruit")
     @commands.has_permissions(manage_roles=True)
     async def recruit(self, ctx, *, sentence):
         """

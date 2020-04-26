@@ -1,13 +1,39 @@
 import logging
-import sys
+import datetime
 import os
+import sys
 import yaml
+from pathlib import Path
 
 import discord
 from discord.ext import commands
 
 
-logger = logging.getLogger(__name__)
+def setup_logger() -> logging.Logger:
+    """Create and return the root Logger object for the bot."""
+    LOGDIR = Path('logs')
+    LOGDIR.mkdir(exist_ok=True)
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')
+    logfile = LOGDIR / f'{timestamp}.log'
+    logger = logging.getLogger('bot')  # the actual logger instance
+    logger.setLevel(logging.DEBUG)  # capture all log levels
+    console_log = logging.StreamHandler()
+    console_log.setLevel(logging.DEBUG)  # log levels to be shown at the console
+    file_log = logging.FileHandler(logfile)
+    file_log.setLevel(logging.DEBUG)  # log levels to be written to file
+    formatter = logging.Formatter('{asctime} - {name} - {levelname} - {message}', style='{')
+    console_log.setFormatter(formatter)
+    file_log.setFormatter(formatter)
+    logger.addHandler(console_log)
+    logger.addHandler(file_log)
+    # additionally, do some of the same configuration for the discord.py logger
+    logging.getLogger('discord').setLevel(logging.ERROR)
+    logging.getLogger('aiosqlite').setLevel(logging.ERROR)
+    logging.getLogger('websockets').setLevel(logging.ERROR)
+    return logger
+
+
+logger = setup_logger()
 
 with open("config.yml") as f:
     yaml_data = yaml.full_load(f)
@@ -34,8 +60,7 @@ class YNBBot(commands.Bot):
 
             except Exception as e:
                 # in case any cog/s did not load.
-                logger.error(f"Could not load extension {cog} due to error:\n{e}")
-                sys.exit()
+                logger.error(f"Could not load extension {cog} due to error:\n{str(e)}")
 
         logger.info(f'Running as {self.user.name} with ID: {self.user.id}')
         await self.change_presence(activity=discord.Game(name="You need bear!"))
