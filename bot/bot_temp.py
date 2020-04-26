@@ -1,7 +1,5 @@
 import discord
 from discord.ext import commands
-import time
-import asyncio
 
 rolename = []
 MSG = []
@@ -22,97 +20,35 @@ async def on_ready():
     await client.change_presence(status=discord.Status.online, activity=discord.Game("Python"))
     guild_id = client.guilds[0].id
     guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
-    channel = await guild.create_voice_channel("Time")
-    await channel.set_permissions(guild.default_role, connect=False)
-    while 1 != 2:
-        t = time.gmtime(time.time())
-        if len(str(t[4])) == 1:
-            b = "0" + str(t[4])
-        else:
-            b = str(t[4])
-        if len(str(t[3])) == 1:
-            a = "0" + str(t[3])
-        else:
-            a = str(t[3])
-        if a in ["23", "11"] and int(b) >= 45 or a in ["12", "00"] and int(b) < 15:
-            cl = "🕛"
-        elif a in ["12", "00"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕧"
-        elif a in ["12", "00"] and int(b) >= 45 or a in ["13", "01"] and int(b) < 15:
-            cl = "🕐"
-        elif a in ["13", "01"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕜"
-        elif a in ["13", "01"] and int(b) >= 45 or a in ["14", "02"] and int(b) < 15:
-            cl = "🕑"
-        elif a in ["14", "02"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕝"
-        elif a in ["14", "02"] and int(b) >= 45 or a in ["15", "03"] and int(b) < 15:
-            cl = "🕒"
-        elif a in ["15", "03"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕞"
-        elif a in ["15", "03"] and int(b) >= 45 or a in ["16", "04"] and int(b) < 15:
-            cl = "🕓"
-        elif a in ["16", "04"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕟"
-        elif a in ["16", "04"] and int(b) >= 45 or a in ["17", "05"] and int(b) < 15:
-            cl = "🕔"
-        elif a in ["17", "05"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕠"
-        elif a in ["17", "05"] and int(b) >= 45 or a in ["18", "06"] and int(b) < 15:
-            cl = "🕕"
-        elif a in ["18", "06"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕡"
-        elif a in ["18", "06"] and int(b) >= 45 or a in ["19", "07"] and int(b) < 15:
-            cl = "🕖"
-        elif a in ["19", "07"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕢"
-        elif a in ["19", "07"] and int(b) >= 45 or a in ["20", "08"] and int(b) < 15:
-            cl = "🕗"
-        elif a in ["20", "08"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕣"
-        elif a in ["20", "08"] and int(b) >= 45 or a in ["21", "09"] and int(b) < 15:
-            cl = "🕘"
-        elif a in ["21", "09"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕤"
-        elif a in ["21", "09"] and int(b) >= 45 or a in ["22", "10"] and int(b) < 15:
-            cl = "🕙"
-        elif a in ["22", "10"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕥"
-        elif a in ["22", "10"] and int(b) >= 45 or a in ["23", "11"] and int(b) < 15:
-            cl = "🕚"
-        elif a in ["23", "11"] and int(b) >= 15 and int(b) < 45:
-            cl = "🕦"
-        await discord.VoiceChannel.edit(channel, name=f"{cl} {a}:{b} UTC")
-        await asyncio.sleep(5)
 
-with open("YouNeedSnek.txt", "r") as f:
-    file = f.readlines()
+# with open("YouNeedSnek.txt", "r") as f:
+#     file = f.readlines()
 
-if file:
-    try:
-        R = file[0][:-1].split("||")
-        for r in R:
-            reactions.append(r.decode("utf-8"))
-    except IndexError:
-        reactions = []
-    try:
-        rolename = file[1][:-1].split("||")
-        roles = file[2][:-1].split("||")
-        Log = file[3][:-1].split("||")
-        for i in range(len(Log)):
-            LOg = Log[i].split()
-            while "" in LOg:
-                LOg.remove("")
-            LOG.append(LOg)
-        WEL = file[4][:-1].split("||")
-        MSG = file[5][:-1].split("||")
-        SM = file[6][:-1].split("||")
-        SM1 = file[7][:-1].split("||")
-    except IndexError:
-        rolename, roles, LOG, WEL, MSG, SM, SM1 = [], [], [], [], [], [], []
-        file = ["", "", "", "", "", "", "", ""]
-else:
-    file = ["", "", "", "", "", "", "", ""]
+# if file:
+#     try:
+#         R = file[0][:-1].split("||")
+#         for r in R:
+#             reactions.append(r.decode("utf-8"))
+#     except IndexError:
+#         reactions = []
+#     try:
+#         rolename = file[1][:-1].split("||")
+#         roles = file[2][:-1].split("||")
+#         Log = file[3][:-1].split("||")
+#         for i in range(len(Log)):
+#             LOg = Log[i].split()
+#             while "" in LOg:
+#                 LOg.remove("")
+#             LOG.append(LOg)
+#         WEL = file[4][:-1].split("||")
+#         MSG = file[5][:-1].split("||")
+#         SM = file[6][:-1].split("||")
+#         SM1 = file[7][:-1].split("||")
+#     except IndexError:
+#         rolename, roles, LOG, WEL, MSG, SM, SM1 = [], [], [], [], [], [], []
+#         file = ["", "", "", "", "", "", "", ""]
+# else:
+#     file = ["", "", "", "", "", "", "", ""]
 
 
 @client.command()  # only roles so far, add branches
@@ -426,79 +362,6 @@ async def welcome(ctx, *, sentence):
                 with open("YouNeedSnek.txt", "w") as f:
                     f.writelines(file)
 
-
-@client.command()
-@commands.has_permissions(manage_roles=True)
-async def recruit(ctx, *, sentence):
-    authorc = ctx.author
-    print(authorc.roles)
-    print([y.id for y in authorc.roles])
-    if 516208259099525134 in [y.id for y in authorc.roles] and str(ctx.channel) == "chat-and-commands":
-        notes = ""
-        L = str(sentence).split(" ")
-        while L[2] not in rolename:
-            L[1] += " " + L[2]
-            L.pop(2)
-        for i in range(len(L) - 4):
-            notes = notes + L[4 + i]
-            if i != len(L) - 5:
-                notes = notes + " "
-        player = str(await client.fetch_user(L[0][3:-1]))
-        guild_id = client.guilds[0].id
-        guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
-        member = discord.utils.find(lambda m: m.name == player[:-5], guild.members)
-        print(ctx.channel)
-        print(member.roles)
-        if 667036535476191232 in [y.id for y in member.roles]:
-            print("Cleared qualifications")
-            for i in range(len(roles)):
-                if rolename[i] == L[2].lower():
-                    tag = roles[i]
-            role = discord.utils.get(guild.roles, name=tag)
-            await member.add_roles(role)
-            await member.edit(nick=L[1])
-            embed = discord.Embed(title="New Member Details",
-                                  color=0x000000)
-            embed.add_field(name="Discord ID", value=L[0], inline=True)
-            embed.add_field(name="In-game ID", value=L[1], inline=True)
-            embed.add_field(name="Branch", value=role, inline=True)
-            embed.add_field(name="Age", value=L[3], inline=True)
-            embed.add_field(name="Notes", value=notes, inline=True)
-            await ctx.send(embed=embed)
-            print(ctx.channel, id)
-            for j in range(len(roles)):
-                if tag == roles[j]:
-                    for i in LOG[j]:
-                        if i != ctx.channel.id:
-                            channel = await client.fetch_channel(i)
-                            await channel.send(embed=embed)
-                    wel = MSG[j]
-                    W = wel.split(" ")
-                    wel = ""
-                    for i in range(len(W)):
-                        if W[i] == "player":
-                            W[i] = L[0]
-                        wel = wel + W[i]
-                        if i != len(W) - 1:
-                            wel = wel + " "
-                    for i in WEL[j]:
-                        channel = await client.fetch_channel(i)
-                        await channel.send(f"{wel}")
-                    W=SM1[j].split()
-                    wel=""
-                    for i in range(len(W)):
-                        if W[i] == "player":
-                            W[i] = L[1]
-                        wel = wel + W[i]
-                        if i != len(W) - 1:
-                            wel = wel + " "
-                    channel = await client.fetch_channel(SM[j])
-                    await channel.send(f"{wel}")
-
-            print("Success")
-        else:
-            await ctx.send(
-                f"Conditions not met! {L[0]} lacks the Social Role. When the said role is present please rerun the command.")
 
 
 @client.event

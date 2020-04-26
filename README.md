@@ -1,2 +1,2 @@
 # YouNeedSnek
-Bot for Server
+Bot for YNB server.
