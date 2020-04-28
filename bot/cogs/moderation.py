@@ -5,6 +5,10 @@ from discord.ext import commands
 
 
 logger = logging.getLogger(__name__)
+
+with open("YouNeedSnek.txt", "r") as f:
+    file = f.readlines()
+
 rolename = []
 MSG = []
 LOG = []
@@ -14,45 +18,39 @@ SM = []
 SM1 = []
 reactions = []
 
+if file:
+    try:
+        R = file[0][:-1].split("||")
+        for r in R:
+            reactions.append(r.encode("utf-8"))
+    except IndexError:
+        reactions = []
+    try:
+        rolename = file[1][:-1].split("||")
+        roles = file[2][:-1].split("||")
+        Log = file[3][:-1].split("||")
+        for i in range(len(Log)):
+            LOg = Log[i].split()
+            while "" in LOg:
+                LOg.remove("")
+            LOG.append(LOg)
+        WEL = file[4][:-1].split("||")
+        MSG = file[5][:-1].split("||")
+        SM = file[6][:-1].split("||")
+        SM1 = file[7][:-1].split("||")
+    except IndexError:
+        rolename, roles, LOG, WEL, MSG, SM, SM1 = [], [], [], [], [], [], []
+        file = ["", "", "", "", "", "", "", ""]
+else:
+    file = ["", "", "", "", "", "", "", ""]
+
 
 class Mods(commands.Cog):
     """A cog for moderation commands"""
     def __init__(self, bot):
         self.bot = bot
 
-
-    @staticmethod
-    def cache_data():
-        with open("YouNeedSnek.txt", "r") as f:
-            file = f.readlines()
-
-        if file:
-            try:
-                R = file[0][:-1].split("||")
-                for r in R:
-                    reactions.append(r.decode("utf-8"))
-            except IndexError:
-                reactions = []
-            try:
-                rolename = file[1][:-1].split("||")
-                roles = file[2][:-1].split("||")
-                Log = file[3][:-1].split("||")
-                for i in range(len(Log)):
-                    LOg = Log[i].split()
-                    while "" in LOg:
-                        LOg.remove("")
-                    LOG.append(LOg)
-                WEL = file[4][:-1].split("||")
-                MSG = file[5][:-1].split("||")
-                SM = file[6][:-1].split("||")
-                SM1 = file[7][:-1].split("||")
-            except IndexError:
-                rolename, roles, LOG, WEL, MSG, SM, SM1 = [], [], [], [], [], [], []
-                file = ["", "", "", "", "", "", "", ""]
-        else:
-            file = ["", "", "", "", "", "", "", ""]
-
-    @commnds.command(name="recruit")
+    @commands.command(name="recruit")
     @commands.has_permissions(manage_roles=True)
     async def recruit(self, ctx, *, sentence):
         """
@@ -124,7 +122,7 @@ class Mods(commands.Cog):
 
     @commands.command()  # only roles so far, add branches
     @commands.has_permissions(manage_roles=True)
-    async def help(ctx, sentence):
+    async def help2(self, ctx, sentence):
         print(sentence)
         S = sentence.split()
         S = S[0].lower()
@@ -402,7 +400,6 @@ class Mods(commands.Cog):
                     with open("YouNeedSnek.txt", "w") as f:
                         f.writelines(file)
 
-
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def recruit(self, ctx, *, sentence):
@@ -475,14 +472,6 @@ class Mods(commands.Cog):
             else:
                 await ctx.send(
                     f"Conditions not met! {L[0]} lacks the Social Role. When the said role is present please rerun the command.")
-
-
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if str(message.channel) == "feedback":
-            for i in reactions:
-                await message.add_reaction(i)
-        await self.bot.process_commands(message)
 
 
 def setup(bot):

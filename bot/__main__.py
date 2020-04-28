@@ -54,13 +54,8 @@ class YNBBot(commands.Bot):
         cogs = [cog for cog in os.listdir("bot/cogs") if cog.endswith(".py")]
 
         for cog in cogs:
-            try:
-                # loading the cogs
-                self.load_extension("bot.cogs." + os.path.splitext(cog)[0])
 
-            except Exception as e:
-                # in case any cog/s did not load.
-                logger.error(f"Could not load extension {cog} due to error:\n{str(e)}")
+            self.load_extension("bot.cogs." + os.path.splitext(cog)[0])
 
         logger.info(f'Running as {self.user.name} with ID: {self.user.id}')
         await self.change_presence(activity=discord.Game(name="You need bear!"))
@@ -75,5 +70,5 @@ class YNBBot(commands.Bot):
 
 if __name__ == "__main__":
     bot = YNBBot()
-    bot.remove_command("help")
+    # bot.remove_command("help")
     bot.run()

@@ -21,8 +21,8 @@ async def on_ready():
     guild_id = client.guilds[0].id
     guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
 
-# with open("YouNeedSnek.txt", "r") as f:
-#     file = f.readlines()
+with open("YouNeedSnek.txt", "r") as f:
+    file = f.readlines()
 
 # if file:
 #     try:
