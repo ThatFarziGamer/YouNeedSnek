@@ -131,3 +131,6 @@ dmypy.json
 # custom
 config.yml
 logs/
+
+#pycharm
+.idea
