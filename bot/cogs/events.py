@@ -14,7 +14,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if str(message.channel) == "feedback":
+        if message.channel.id == 635604983227744294:
             with open("YouNeedSnek.txt", "r") as f:
                 emoji_ids = f.readlines()
             emoji_list = []
