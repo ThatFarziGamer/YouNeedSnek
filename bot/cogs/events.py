@@ -1,12 +1,11 @@
 import logging
-import re
 
-import discord
 from discord.ext import commands
-from discord.ext.commands import EmojiConverter
 
 
 logger = logging.getLogger(__name__)
+
+NEUTRAL_FACE_EMOJI = "😐"
 
 
 class Events(commands.Cog):
@@ -18,9 +17,15 @@ class Events(commands.Cog):
         if str(message.channel) == "feedback":
             with open("YouNeedSnek.txt", "r") as f:
                 emoji_ids = f.readlines()
-                for emoji_id in emoji_ids:
-                    emoji = self.bot.get_emoji(int(emoji_id))
-                    await message.add_reaction(emoji)
+            emoji_list = []
+            for emoji_id in emoji_ids:
+                emoji = self.bot.get_emoji(int(emoji_id))
+                emoji_list.append(emoji)
+            no_of_custom_emojis = len(emoji_list)
+            emoji_list.insert(no_of_custom_emojis//2, NEUTRAL_FACE_EMOJI)
+
+            for emoji in emoji_list:
+                await message.add_reaction(emoji)
 
 
 def setup(bot):

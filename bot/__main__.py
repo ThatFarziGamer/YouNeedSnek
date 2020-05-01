@@ -45,7 +45,7 @@ class YNBBot(commands.Bot):
     """An instance of the bot."""
 
     def __init__(self):
-        super().__init__(command_prefix="?",
+        super().__init__(command_prefix=prefix,
                          description="YNB Bot.")
 
     async def on_ready(self):

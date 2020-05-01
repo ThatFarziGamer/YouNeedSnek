@@ -3,10 +3,15 @@ import logging
 import time
 
 import discord
+import yaml
 from discord.ext import commands
 
 
 logger = logging.getLogger(__name__)
+with open("config.yml") as f:
+    yaml_data = yaml.full_load(f)
+guild_id = yaml_data["guild"]["id"]
+
 
 
 class VoiceClock(commands.Cog):
@@ -15,7 +20,7 @@ class VoiceClock(commands.Cog):
         self.bot = bot
 
     async def config_clock(self):
-        guild = self.bot.get_guild(426566445124812813)
+        guild = self.bot.get_guild(int(guild_id))
         channel_dict = {}
         voice_channels = guild.voice_channels  # a list
 

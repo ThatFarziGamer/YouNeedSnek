@@ -24,7 +24,6 @@ class Feedback(commands.Cog):
         all_emojis = ctx.guild.emojis
         emoji_id = 0
         for emoji in all_emojis:
-            print(emoji.name)
             if emoji.name == emoji_name:
                 emoji_id = emoji.id
                 break
@@ -40,7 +39,6 @@ class Feedback(commands.Cog):
         all_emojis = path_of_file.read_text()
         if not all_emojis:
             return await ctx.send("No emojis available.")
-        print(all_emojis)
         embed = discord.Embed(color=discord.Colour.blue())
         embed.title = "Feedback Reaction Emojis"
         embed.description = all_emojis

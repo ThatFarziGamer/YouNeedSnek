@@ -129,5 +129,10 @@ dmypy.json
 .pyre/
 
 # custom
+YouNeedSnek.txt
 config.yml
 logs/
+
+#pycharm
+.idea
+
